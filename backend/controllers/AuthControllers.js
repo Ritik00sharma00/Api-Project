@@ -8,7 +8,7 @@ const {
     compareHash
 } = require("../utils/Bcrypt.js");
 
-const User = require("../model/user.cjs");
+const User = require("../model/user.js");
 
 exports.registration = async (req, res) => {
     try {

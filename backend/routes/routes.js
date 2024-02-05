@@ -1,15 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const UserController = require('../controllers/userController.js');
+const { printAlltaskref,taskrefbyId, createtaskref,updatetaskref,deleteUser} = require('../controllers/userController.js');
 
-router.get('/',UserController.printAlltask);
+router.get('/', printAlltaskref);
 
-router.get('/:id',()=>{ console.log("running");UserController.userbyId});
+router.get('/:id', taskrefbyId);
 
-router.post('/',()=>{ console.log("running");UserController.createUser});
+router.post('/create', createtaskref);
 
-router.put('/:id',()=>{ console.log("running");UserController.updateUser});
+router.put('/:id', updatetaskref);
 
-router.delete('/:id',()=>{console.log("running");UserController.deleteUser});
+router.delete('/:id',deleteUser);
 
 module.exports = router;

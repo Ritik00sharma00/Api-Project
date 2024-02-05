@@ -1,19 +1,21 @@
-const task = require('../model/user.cjs');
+const taskref = require('../model/user.js');
 
-exports.printAlltask = async (req, res) => {
+exports.printAlltaskref = async (req, res) => {
     try {
-        const tasks = await task.find();
-        res.json(tasks);
+        const taskrefs = await taskref.find({}); // Await the query execution
+        res.json(taskrefs); // Send the taskrefs as JSON
     } catch (err) {
-        res.status(401).json({
+        res.status(500).json({
             message: err.message
         });
     }
+};
 
-    exports.taskbyId = async (req, res) => {
+
+    exports.taskrefbyId = async (req, res) => {
         try {
-            const tasks = await task.findByid(req.params.user);
-            res.json(tasks);
+            const taskrefs = await taskref.find({id:req.params.id});
+            res.json(taskrefs);
         } catch (err) {
             res.status(500).json({message: err.message});
             res.status(500).json({
@@ -21,36 +23,47 @@ exports.printAlltask = async (req, res) => {
             });
         }
     }
-
-    exports.createTask = async(req, res) => {
-        try
-        {
-            const ntask=new task(req.body);
-            const savedtask= ntask.save();
-            res.status(201).json(savedtask);
-        } catch (error) {
-            res.status(400).json({ message: error.message });
-        }
-    
-    }
-
-    exports.updateUser= async (req, res) => {
+    exports.createtaskref = async (req, res) => {
         try {
-            const updatedTask = await task.findByIdAndUpdate(req.params.id, req.body, { new: true });
-            res.json(updatedTask);
+             const { task, uniqueNumber} = req.body;
+    
+            // Create a new task using the usertask model
+            const newTask = new usertask({
+                task,
+                uniqueNumber
+            });
+            const savedTask = await newTask.save();
+    
+            res.status(201).json(savedTask);
         } catch (error) {
             res.status(400).json({ message: error.message });
         }
-    },
+    };
+    
+
+    exports.updatetaskref = async (req, res) => {
+        try {
+            const { task, uniqueNumber, description, Date, Time, employeeName,priority} = req.body;
+    
+            await taskref.updateOne(
+                { id: req.params.id },
+                { $set: { task, uniqueNumber, description, Date, Time, employeeName,priority } }
+            );
+    
+            res.status(200).json({ message: 'Task updated successfully' });
+        } catch (error) {
+            res.status(400).json({ message: error.message });
+        }
+    };
+    
 
     exports.deleteUser= async (req, res) => {
         try {
-            await User.findByIdAndDelete(req.params.id);
+            await taskref.findByIdAndDelete(req.params.id);
             res.json({ message: 'User deleted successfully' });
         } catch (error) {
             res.status(400).json({ message: error.message });
         }
     }
 
-
-}
+ 
