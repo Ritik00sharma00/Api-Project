@@ -2,8 +2,8 @@ const taskref = require('../model/user.js');
 
 exports.printAlltaskref = async (req, res) => {
     try {
-        const taskrefs = await taskref.find({}); // Await the query execution
-        res.json(taskrefs); // Send the taskrefs as JSON
+        const taskrefs = await taskref.find({}); 
+        res.json(taskrefs);
     } catch (err) {
         res.status(500).json({
             message: err.message
@@ -27,8 +27,7 @@ exports.printAlltaskref = async (req, res) => {
         try {
              const { task, uniqueNumber} = req.body;
     
-            // Create a new task using the usertask model
-            const newTask = new usertask({
+            const newTask = new taskref({
                 task,
                 uniqueNumber
             });

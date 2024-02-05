@@ -1,6 +1,5 @@
 const jwt=require('jsonwebtoken');
 
-//function to generate web token
 
 const generateJWT=(payload,secretKey,expiresIn='1h')=>
 {
@@ -17,7 +16,6 @@ const generateJWT=(payload,secretKey,expiresIn='1h')=>
 };
 
 
-//verify jwt
 
 const verifyJWT=(token,secretKey)=>{
     try{

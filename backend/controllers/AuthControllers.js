@@ -1,4 +1,3 @@
-
 const {
     generateJWT,
     verifyJWT
@@ -38,11 +37,11 @@ exports.registration = async (req, res) => {
 
         await user.save();
 
-        res.statusCode(200).json({
+        res.status(200).json({
             message: "registation done"
         });
     } catch (err) {
-        res.statusCode(500).json({
+        res.status(500).json({
             message: "errr" + err.message
         });
     }
@@ -61,9 +60,10 @@ exports.login = async (req, res) => {
         let user = await User.findOne({
             email
         });
+        
 
         if (!user) {
-            return res.statusCode(401).json({
+            return res.status(401).json({
                 mesage: "email not found"
             });
         }
@@ -74,9 +74,6 @@ exports.login = async (req, res) => {
             });
         }
 
-
-
-        ///this  is for generate JWT token
         const payload = {
             email: email,
             username: username,
